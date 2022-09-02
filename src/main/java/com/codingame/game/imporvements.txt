@@ -1,0 +1,2 @@
+- Increased wordset size
+- Shuffle before sending word set to user
