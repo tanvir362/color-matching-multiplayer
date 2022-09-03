@@ -47,28 +47,17 @@ public class Game {
 
     }
 
-    public void playerPassingCard(Player player, String card){
-        List<String> senderCards = cards.get(player);
-        List<String> receiverCards = cards.get(nextPlayer.get(player));
+    public void playerPassingCard(Player sender, String card){
+        Player receiver = nextPlayer.get(sender);
+
+        List<String> senderCards = cards.get(sender);
+        List<String> receiverCards = cards.get(receiver);
 
         if(!senderCards.contains(card)){
-            throw new IllegalArgumentException("Player don't have the card!");
+            throw new IllegalArgumentException(String.format("%s don't have the \"%s\" card!", card, sender.getNicknameToken()));
         }
         senderCards.remove(card);
         receiverCards.add(card);
-
-        //getting max frequency of a card and setting the score
-        Map<String, Integer> cardFrequency = new HashMap<>();
-        for(String eachCard: senderCards){
-            cardFrequency.put(
-                    eachCard,
-                    cardFrequency.getOrDefault(eachCard, 0) + 1
-            );
-        }
-
-        player.setScore(
-                Collections.max(cardFrequency.values())
-        );
 
     }
 
@@ -90,6 +79,21 @@ public class Game {
 
     public Map<Player, Player> getPlayersOrientation(){
         return nextPlayer;
+    }
+
+    public int calculatePlayerScore(Player player){
+
+        //getting max frequency of a card and setting the score
+        Map<String, Integer> cardFrequency = new HashMap<>();
+        for(String eachCard: getPlayerCars(player)){
+            cardFrequency.put(
+                    eachCard,
+                    cardFrequency.getOrDefault(eachCard, 0) + 1
+            );
+        }
+
+
+        return Collections.max(cardFrequency.values());
     }
 
 
