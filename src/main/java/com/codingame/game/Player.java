@@ -34,18 +34,4 @@ public class Player extends AbstractMultiplayerPlayer {
         return this.isWInner;
     }
 
-    public String generateTurnInputLine(){
-
-        return "TurnInputLine";
-    }
-
-    public void processOutput(String output){
-
-    }
-
-    public int calculateScore(){
-
-        return 0;
-    }
-
 }
